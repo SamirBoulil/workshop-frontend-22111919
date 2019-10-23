@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Customers from "./customers";
+import Posters from "./poster";
+import { BrowserRouter, Link, Switch, Redirect, Route } from "react-router-dom";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const NoMatch = () => <h1>404</h1>;
+const App: any = () => (
+  <BrowserRouter>
+    <Link to="/posters">My posters</Link>
+    <Link to="/customers">My customers</Link>
+
+    <Switch>
+      <Redirect exact from="/" to="/posters" />
+      <Route
+        path="/posters"
+        render={match => {
+          console.log(match);
+          return <Posters baseName="/posters" />;
+        }}
+      />
+      <Route
+        path="/customers"
+        render={match => {
+          console.log(match);
+          return <Customers />;
+        }}
+      />
+      <Route component={NoMatch} />
+    </Switch>
+  </BrowserRouter>
+);
 
 export default App;
