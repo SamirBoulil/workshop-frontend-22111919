@@ -21,4 +21,4 @@ export const startLoading = { type: START_LOADING_KEY };
 export const stopLoading = { type: STOP_LOADING_KEY };
 
 // Selectors
-export const getIsLoading = selector => selector(state => state);
+export const getIsLoading = state => state;

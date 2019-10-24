@@ -1,5 +1,4 @@
 import queryString from "query-string";
-import { useContext } from "react";
 
 type Product = {
   id: string;

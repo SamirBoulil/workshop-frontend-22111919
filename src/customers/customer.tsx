@@ -16,7 +16,7 @@ type CustomerProps =
   | any;
 const Customer = ({ id, avatar, first_name, last_name }: CustomerProps) => (
   <div key={id}>
-    <img src={avatar} />
+    <img src={avatar} alt="The " />
     <CustomerInfo>{first_name}</CustomerInfo>
     <CustomerInfo>{last_name}</CustomerInfo>
   </div>

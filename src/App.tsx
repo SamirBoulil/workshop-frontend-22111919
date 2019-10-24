@@ -1,8 +1,7 @@
-import React, { createContext, useContext, useState } from "react";
-import "./App.css";
+import React from "react";
 import Customers from "./customers";
 import Posters from "./poster";
-import { BrowserRouter, Link, Switch, Redirect, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Redirect, Route } from "react-router-dom";
 import Menu from "./menu";
 import { LoadingProvider } from "./loading-context";
 import { store } from "./store";
@@ -29,7 +28,7 @@ const App: any = () => {
               path="/customers"
               render={match => {
                 console.log(match);
-                return <Customers />;
+                return <Customers basename={"/customers"} />;
               }}
             />
             <Route component={NoMatch} />

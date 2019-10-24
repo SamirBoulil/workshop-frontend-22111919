@@ -4,12 +4,12 @@ import { Switch, Route } from "react-router-dom";
 import { fetchCollection } from "../common/api";
 import Grid from "../common/Grid";
 
-const Customers = () => (
+const Customers = ({ basename }: { basename: string }) => (
   <Switch>
     <Route
       path="/"
       render={() => (
-        <Grid fetcher={fetchCollection("customers")}>
+        <Grid fetcher={fetchCollection("customers")} baseUrl={basename}>
           <Customer />
         </Grid>
       )}

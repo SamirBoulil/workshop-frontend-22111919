@@ -14,7 +14,7 @@ const Posters = ({ baseName }: { baseName: string }) => (
     <Route
       path="/"
       render={() => (
-        <Grid fetcher={fetchCollection("products")}>
+        <Grid fetcher={fetchCollection("products")} baseUrl={baseName}>
           <Poster />
         </Grid>
       )}

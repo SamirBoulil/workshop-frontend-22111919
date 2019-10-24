@@ -1,10 +1,10 @@
-import React, { useReducer, ReactElement, useContext } from "react";
+import React, { useReducer, ReactElement } from "react";
 import PageSelector from "./page-selector";
 import PageNumberSelector from "./page-number-selector";
 import styled from "styled-components";
-import { useLoadingContext } from "../loading-context";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { startLoading, stopLoading } from "../store";
+import { Link } from "react-router-dom";
 
 const FlexGrid = styled.div`
   display: flex;
@@ -21,9 +21,9 @@ type Action =
       type: "update_page";
       newPage: number;
     };
-function assertNever(x: never): never {
-  throw new Error("Unexpected object: " + x);
-}
+// function assertNever(x: never): never {
+//   throw new Error("Unexpected object: " + x);
+// }
 
 const paginationReducer = (state: Pagination, action: Action) => {
   switch (action.type) {
@@ -59,14 +59,15 @@ const useCollection = (
       dispatch(stopLoading);
     };
     fetchData();
-  }, [pageSize, pageNumber]);
+  }, [pageSize, pageNumber, setTotalEntity, setCollection, fetcher, dispatch]);
 };
 
 type GridProps = {
+  baseUrl: string;
   children: any;
   fetcher: (pageSize: number, pageNumber: number) => Promise<any>;
 };
-const Grid = ({ fetcher, children }: GridProps) => {
+const Grid = ({ fetcher, children, baseUrl }: GridProps) => {
   const Row: ReactElement<any> = children;
   const [collection, setCollection] = React.useState<any>([]);
   const [totalPages, setTotalPages] = React.useState(1);
@@ -91,12 +92,14 @@ const Grid = ({ fetcher, children }: GridProps) => {
         totalPages={totalPages}
       />
       <FlexGrid>
-        {collection.map((entity: any) =>
-          React.cloneElement(Row, {
-            ...entity,
-            key: entity.id
-          })
-        )}
+        {collection.map((entity: any) => (
+          <Link to={`${baseUrl}/${entity.id}`}>
+            {React.cloneElement(Row, {
+              ...entity,
+              key: entity.id
+            })}
+          </Link>
+        ))}
       </FlexGrid>
     </>
   );

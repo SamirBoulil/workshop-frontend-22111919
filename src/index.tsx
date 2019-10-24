@@ -3,8 +3,6 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import Poster from "./poster/poster";
-import Counter from "./counter";
 
 ReactDOM.render(
   //   <App PosterComponent={Poster}></App>,

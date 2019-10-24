@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useLoadingContext } from "./loading-context";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { getIsLoading } from "./store";
 import { useSelector } from "react-redux";
 
 const Menu = () => {
   // const { isLoading } = useLoadingContext();
-  const isLoading = getIsLoading(useSelector);
+  const isLoading = useSelector(getIsLoading);
   return (
     <>
       <Link to="/posters">My posters</Link>
