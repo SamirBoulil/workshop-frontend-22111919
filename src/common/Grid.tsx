@@ -1,7 +1,8 @@
-import React, { useReducer, ReactElement } from "react";
+import React, { useReducer, ReactElement, useContext } from "react";
 import PageSelector from "./page-selector";
 import PageNumberSelector from "./page-number-selector";
 import styled from "styled-components";
+import { useLoadingContext } from "../loading-context";
 
 const FlexGrid = styled.div`
   display: flex;
@@ -40,11 +41,16 @@ const useCollection = (
   setCollection: (collection: any[]) => void,
   setTotalEntity: (total: number) => void
 ) => {
+  const { setIsLoading } = useLoadingContext();
+
   React.useEffect(() => {
+    setIsLoading(true);
     const fetchData = async () => {
       const [entities, totalCount] = await fetcher(pageSize, pageNumber);
       setCollection(entities);
       setTotalEntity(Math.floor(totalCount / pageSize));
+
+      setIsLoading(false);
     };
     fetchData();
   }, [pageSize, pageNumber]);

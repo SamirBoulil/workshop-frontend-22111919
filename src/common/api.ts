@@ -1,4 +1,5 @@
 import queryString from "query-string";
+import { useContext } from "react";
 
 type Product = {
   id: string;
@@ -25,7 +26,8 @@ export const fetchItem = async (
     `https://json-server-now.pemoreau.now.sh/${entity}/${id}`
   );
 
-  return await response.json();
+  const result = await response.json();
+  return result;
 };
 
 // const products = generateData().products;
@@ -42,6 +44,7 @@ export const fetchCollection = (entity: "products" | "customers") => async (
   );
   const totalCount = await response.headers.get("x-total-count");
   const products = await response.json();
+
   if (totalCount === null) {
     return [products, products.length];
   }
