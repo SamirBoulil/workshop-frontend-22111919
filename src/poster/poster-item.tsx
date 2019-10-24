@@ -3,18 +3,22 @@ import Poster from "./poster";
 import { fetchItem } from "../common/api";
 import { useParams, useRouteMatch } from "react-router";
 import { useLoadingContext } from "../loading-context";
+import { useSelector, useDispatch } from "react-redux";
+import { getIsLoading, startLoading, stopLoading } from "../store";
 
 const PosterItem = ({ match }: { match: { params: { id: string } } }) => {
   const [posterItem, setPosterItem] = React.useState({});
-  const { setIsLoading } = useLoadingContext();
+  // const { setIsLoading } = useLoadingContext(); // <-- Uses React.Context
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
+    dispatch(startLoading);
 
     const fetchPosterItem = async () => {
       const posterItem = await fetchItem("products", match.params.id);
       setPosterItem(posterItem);
-      setIsLoading(false);
+      dispatch(stopLoading);
     };
     fetchPosterItem();
   }, [posterItem]);
